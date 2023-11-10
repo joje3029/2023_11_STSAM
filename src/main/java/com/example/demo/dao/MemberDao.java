@@ -22,7 +22,7 @@ public interface MemberDao {
 					
 			""")
 
-	public void doJoin(String usrId, String usrPw, String name, String nick, String phonNum, String email);
+	public Object doJoin(String usrId, String usrPw, String name, String nick, String phonNum, String email);
 	
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
@@ -32,4 +32,11 @@ public interface MemberDao {
 				WHERE id = #{id}
 			""")
 	public Member getMemberById(int id);
+	
+	@Select("""
+			SELECT COUNT(*)
+			FROM `member`
+			WHERE loginId = #{usrId}
+			""")
+	public Object checkById(String usrId, String usrPw, String name, String nick, String phonNum, String email);
 }
